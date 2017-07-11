@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script src="websocket.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<div id="wrapper">
+  <h1>Java Websocket Home</h1>
+  <p>Welcome to the Java WebSocket Home. Click the Add a device button to start adding devices.</p>
+  <br />
+  <div id="addPoll">
+    <div class="button"> <a href="#" OnClick="showForm()">Add poll</a> </div>
+    <form id="addPollForm">
+      <h3>Add a new question</h3>
+      <span>Name: <input type="text" name="poll_question" id="poll_question"></span>
+      <input type="button" class="button" value="Add" onclick=formSubmit()>
+      <input type="reset" class="button" value="Cancel" onclick=hideForm()>
+    </form>
+      <form id="addChoices">
+          <h3>Add choices:</h3>
+          <span>Name: <input type="text" name="choice" id="choice1"></span>
+          <input type="button" class="button" value="Add" onclick=choiceSubmit()>
+          <input type="reset" class="button" value="Done" onclick=hideChoiceForm()>
+
+
+      </form>
+  </div>
+  <br />
+  <h3>Polls:</h3>
+  <div id="content">
+  </div>
+</div>
+
+</body>
+</html>
