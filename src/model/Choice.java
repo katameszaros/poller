@@ -6,7 +6,7 @@ package model;
 public class Choice {
 
     String description;
-    Integer quantity;
+    int quantity;
 
     public Choice(String description) {
         this.description = description;
@@ -20,8 +20,8 @@ public class Choice {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setQuantity(Integer numToRaise) {
+        quantity += numToRaise;
     }
 
 }

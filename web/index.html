@@ -6,6 +6,11 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script src="websocket.js"></script>
   <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="sb-admin-2.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
 </head>
 <body>
 
@@ -14,7 +19,7 @@
   <p>Welcome to the Java WebSocket Home. Click the Add a device button to start adding devices.</p>
   <br />
   <div id="addPoll">
-    <div class="button"> <a href="#" OnClick="showForm()">Add poll</a> </div>
+    <div class="button"> <a href="#" OnClick="showForm()">Add new poll</a> </div>
     <form id="addPollForm">
       <h3>Add a new question</h3>
       <span>Name: <input type="text" name="poll_question" id="poll_question"></span>
@@ -26,13 +31,14 @@
           <span>Name: <input type="text" name="choice" id="choice1"></span>
           <input type="button" class="button" value="Add" onclick=choiceSubmit()>
           <input type="reset" class="button" value="Done" onclick=hideChoiceForm()>
-
-
       </form>
+  </div>
+  <div id="details" class="row">
+    <h3> Vote! </h3>
   </div>
   <br />
   <h3>Polls:</h3>
-  <div id="content">
+  <div id="content" class="row">
   </div>
 </div>
 

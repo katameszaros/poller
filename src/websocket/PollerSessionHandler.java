@@ -8,6 +8,9 @@ import model.Choice;
 import model.Poll;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.spi.JsonProvider;
 import javax.websocket.Session;
@@ -67,11 +70,55 @@ public class PollerSessionHandler {
             JsonProvider provider = JsonProvider.provider();
             JsonObject showChoicesMessage = provider.createObjectBuilder()
                     .add("action", "addChoice")
-                    .add("pollId", poll.getId())
+                    .add("id", poll.getId())
                     .add("choice", choice.getDescription())
                     .build();
             sendToAllConnectedSessions(showChoicesMessage);
         }
+    }
+
+    public void getPollDetails(int pollId) {
+        Poll poll = getPollById(pollId);
+        if (poll != null) {
+            List<Choice> choices = poll.getChoices();
+            JsonArray choicesArray = createJsonArrayFromChoices(choices);
+            JsonProvider provider = JsonProvider.provider();
+            JsonObject showChoicesMessage = provider.createObjectBuilder()
+                    .add("action", "getPollDetails")
+                    .add("id", poll.getId())
+                    .add("choices", choicesArray)
+                    .build();
+            sendToAllConnectedSessions(showChoicesMessage);
+        }
+    }
+
+    public void addVoteToPoll(int pollId, int choiceIndex) {
+        Poll poll = getPollById(pollId);
+        if (poll != null) {
+            List<Choice> choices = poll.getChoices();
+            Choice choice = choices.get(choiceIndex);
+            choice.setQuantity(1);
+            JsonArray choicesArray = createJsonArrayFromChoices(choices);
+            JsonProvider provider = JsonProvider.provider();
+            JsonObject showChoicesMessage = provider.createObjectBuilder()
+                    .add("action", "addVoteToPoll")
+                    .add("id", poll.getId())
+                    .add("choices", choicesArray)
+                    .build();
+            sendToAllConnectedSessions(showChoicesMessage);
+
+        }
+    }
+
+    private JsonArray createJsonArrayFromChoices(List<Choice> choices) {
+        JsonArrayBuilder jsonArray = Json.createArrayBuilder();
+        for(Choice choice : choices) {
+            jsonArray.add(Json.createObjectBuilder()
+                    .add("description", choice.getDescription())
+                    .add("quantity", choice.getQuantity()));
+            }
+        JsonArray result = jsonArray.build();
+        return result;
     }
 
     private Poll getPollById(int id) {

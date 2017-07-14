@@ -12,7 +12,6 @@ import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.StringReader;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -64,8 +63,29 @@ public class PollerWebSocketServer {
                 for (Poll poll : existingPolls) {
                     if (poll.getQuestion().equals(pollName)){
                         poll.addChoice(choice);
+                        sessionHandler.addChoiceToPoll(poll, choice);
                     }
-                    sessionHandler.addChoiceToPoll(poll, choice);
+                }
+            }
+
+            if ("getPollDetails".equals(jsonMessage.getString("action"))) {
+                int pollId = jsonMessage.getInt("pollId");
+                List<Poll> existingPolls = sessionHandler.getPolls();
+                for (Poll poll : existingPolls) {
+                    if (poll.getId()==pollId){
+                        sessionHandler.getPollDetails(pollId);
+                    }
+                }
+            }
+
+            if ("addVoteToPoll".equals(jsonMessage.getString("action"))) {
+                int pollId = jsonMessage.getInt("pollId");
+                int choiceIndex = jsonMessage.getInt("choiceIndex");
+                List<Poll> existingPolls = sessionHandler.getPolls();
+                for (Poll poll : existingPolls) {
+                    if (poll.getId()==pollId){
+                        sessionHandler.addVoteToPoll(pollId, choiceIndex);
+                    }
                 }
             }
         }
