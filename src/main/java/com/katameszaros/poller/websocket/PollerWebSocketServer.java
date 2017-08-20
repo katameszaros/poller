@@ -1,9 +1,13 @@
-package websocket;
+package com.katameszaros.poller.websocket;
 
-import model.Choice;
-import model.Poll;
+import com.katameszaros.poller.AppContextProvider;
+import com.katameszaros.poller.model.Choice;
+import com.katameszaros.poller.model.Poll;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.annotation.ApplicationScope;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -18,15 +22,24 @@ import java.util.logging.Logger;
 /**
  * Created by kata on 2017.06.25..
  */
-@ApplicationScoped
+@ApplicationScope
 @ServerEndpoint("/actions")
 public class PollerWebSocketServer {
 
-    @Inject
+    @Autowired
     private PollerSessionHandler sessionHandler;
+
+
+    private void autowire() {
+// Fixes https://github.com/spring-projects/spring-boot/issues/1722
+        ApplicationContext c = AppContextProvider.getApplicationContext();
+        AutowireCapableBeanFactory factory = c.getAutowireCapableBeanFactory();
+        factory.autowireBean(this);
+    }
 
     @OnOpen
     public void open(Session session) {
+        autowire();
         sessionHandler.addSession(session);
     }
 

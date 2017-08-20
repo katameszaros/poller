@@ -1,4 +1,4 @@
-package model;
+package com.katameszaros.poller.model;
 
 import java.util.ArrayList;
 import java.util.List;

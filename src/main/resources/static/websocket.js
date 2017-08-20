@@ -3,7 +3,11 @@
  */
 
 window.onload = init;
-var socket = new WebSocket("ws://localhost:8080/poller_war_exploded/actions");
+var websocketProtocol = "ws";
+if (location.protocol.indexOf('https') !== -1) {
+    websocketProtocol += "s";
+}
+var socket = new WebSocket(websocketProtocol+"://" + location.host + "/actions");
 socket.onmessage = onMessage;
 
 $(document).ready(function(){

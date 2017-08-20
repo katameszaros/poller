@@ -1,4 +1,4 @@
-package model;
+package com.katameszaros.poller.model;
 
 /**
  * Created by kata on 2017.06.25..

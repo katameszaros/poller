@@ -1,13 +1,13 @@
-package websocket;
+package com.katameszaros.poller.websocket;
 
 /**
  * Created by kata on 2017.06.25..
  */
 
-import model.Choice;
-import model.Poll;
-
-import javax.enterprise.context.ApplicationScoped;
+import com.katameszaros.poller.model.Choice;
+import com.katameszaros.poller.model.Poll;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.ApplicationScope;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -22,7 +22,8 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@ApplicationScoped
+@ApplicationScope
+@Component
 public class PollerSessionHandler {
     private int pollId = 0;
     private final Set<Session> sessions = new HashSet<>();
