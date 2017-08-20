@@ -1,47 +1,51 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <script src="websocket.js"></script>
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="sb-admin-2.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <script src="websocket.js"></script>
+
 
 </head>
 <body>
-
 <div id="wrapper">
-  <h1>Java Websocket Home</h1>
-  <p>Welcome to the Java WebSocket Home. Click the Add a device button to start adding devices.</p>
-  <br />
-  <div id="addPoll">
-    <div class="button"> <a href="#" OnClick="showForm()">Add new poll</a> </div>
-    <form id="addPollForm">
-      <h3>Add a new question</h3>
-      <span>Name: <input type="text" name="poll_question" id="poll_question"></span>
-      <input type="button" class="button" value="Add" onclick=formSubmit()>
-      <input type="reset" class="button" value="Cancel" onclick=hideForm()>
-    </form>
-      <form id="addChoices">
-          <h3>Add choices:</h3>
-          <span>Name: <input type="text" name="choice" id="choice1"></span>
-          <input type="button" class="button" value="Add" onclick=choiceSubmit()>
-          <input type="reset" class="button" value="Done" onclick=hideChoiceForm()>
-      </form>
-  </div>
-  <div id="details" class="row">
-    <h3> Vote! </h3>
-  </div>
-  <canvas id="myChart"></canvas>
-  <br />
-  <h3>Polls:</h3>
-  <div id="content" class="row">
-  </div>
-</div>
+    <h1>Java Websocket Home</h1>
+    <p>Welcome to the Java WebSocket Home. Click the Add a device button to start adding devices.</p>
+    <br/>
+        <div id="addPoll">
+            <div class="button"><a href="#" OnClick="showForm()">Add new poll</a></div>
+            <form id="addPollForm">
+                <div class="form-group">
+                    <input type="text" name="poll_question" id="poll_question" />
+                </div>
+            </form>
 
+                <div class="form-group">
+                        <form id="addChoices" class="input-append">
+                            <div id="field">
+                                <input autocomplete="off" class="choice" id="field1" name="choice" type="text" placeholder="Add an option" data-items="8"/>
+                                <button id="remove1" class="btn btn-danger remove-me" >-</button>
+                                <br/>
+                            </div>
+                            <button id="b1" class="btn add-more" type="button" value="Add">+</button>
+                        </form>
+                    <input type="reset" id="doneButton" class="button" value="Done" onclick=choiceSubmit()>
+                </div>
+                    <!--                <h3>Add a new question</h3>
+                                    <span>Name: <input type="text" name="poll_question" id="poll_question"></span>
+                                    <input type="button" class="button" value="Add" onclick=formSubmit()>
+                                    <input type="reset" class="button" value="Cancel" onclick=hideForm()>-->
+        </div>
+        <!--      <div class="inline" id="details" class="row">
+                <h3> Vote! </h3>
+              </div>-->
+        <br/>
+        <div id="link">
+        </div>
+</div>
 </body>
 </html>

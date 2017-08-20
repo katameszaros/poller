@@ -6,19 +6,34 @@ window.onload = init;
 var socket = new WebSocket("ws://localhost:8080/poller_war_exploded/actions");
 socket.onmessage = onMessage;
 
+$(document).ready(function(){
+    $(".add-more").click(function(e){
+        e.preventDefault();
+        var next = $(".choice").length;
+
+        var newIn = '<input autocomplete="off" class="choice" id="field' + next +
+            '" name="field' + next + '" type="text">';
+        var removeBtn = '<button id="remove' + (next) +
+            '" class="btn btn-danger remove-me" >-</button><br/>';
+        $("#field").append(newIn).append(removeBtn);
+
+
+        $('.remove-me').click(function(e){
+            e.preventDefault();
+            var fieldNum = this.id.charAt(this.id.length-1);
+            var fieldID = "#field" + fieldNum;
+            $(this).remove();
+            $(fieldID).remove();
+        });
+    });
+
+});
+
 function onMessage(event) {
     var poll = JSON.parse(event.data);
     var pollId = poll.id;
     if (poll.action === "add") {
-        printPollElement(poll);
-    }
-    if (poll.action === "remove") {
-        document.getElementById(poll.id).remove();
-        //poll.parentNode.removeChild(poll);
-    }
-    if (poll.action === "addChoice") {
-        var choiceDescription = poll.choice;
-        showNewChoice(pollId, choiceDescription);
+        showVoterLink(poll.id);
     }
     if (poll.action === "getPollDetails") {
         var choices = poll.choices;
@@ -74,52 +89,12 @@ function sendVote(pollId, choiceIndex) {
 }
 
 
-function printPollElement(poll) {
-    var content = document.getElementById("content");
+/*var link = document.createElement("a");
+link.setAttribute("href", "javascript:;");
+link.setAttribute("onclick", "getPollDetails("+ poll.id + ")");
+link.setAttribute("id", poll.id);
+stileDiv.appendChild(link);*/
 
-    var pollDiv = document.createElement("div");
-    pollDiv.setAttribute("id", poll.id);
-    pollDiv.setAttribute("class", "choice col-lg-3 col-md-6");
-    content.appendChild(pollDiv);
-
-    var stileDiv = document.createElement("div");
-    stileDiv.setAttribute("class", "panel panel-primary");
-    pollDiv.appendChild(stileDiv);
-
-    var pollName = document.createElement("div");
-    pollName.setAttribute("class", "pollName panel-heading");
-    pollName.innerHTML = poll.name;
-    stileDiv.appendChild(pollName);
-
-    var link = document.createElement("a");
-    link.setAttribute("href", "javascript:;");
-    link.setAttribute("onclick", "getPollDetails("+ poll.id + ")");
-    link.setAttribute("id", poll.id);
-    stileDiv.appendChild(link);
-
-    var details = document.createElement("div");
-    details.setAttribute("class", "panel-footer");
-    link.appendChild(details);
-
-    var detailsTextLeft = document.createElement("span");
-    detailsTextLeft.setAttribute("class", "pull-left");
-    detailsTextLeft.innerHTML = "View details";
-    details.appendChild(detailsTextLeft);
-
-    var detailsTextRight = document.createElement("span");
-    detailsTextRight.setAttribute("class", "pull-right");
-    detailsTextRight.innerHTML = "<i class=\"fa fa-arrow-circle-right\"></i>";
-    details.appendChild(detailsTextRight);
-
-    var clearFix = document.createElement("div");
-    clearFix.setAttribute("class", "clearFix");
-    details.appendChild(clearFix);
-
-    var removePoll = document.createElement("span");
-    removePoll.setAttribute("class", "removePoll");
-    removePoll.innerHTML = "<a href=\"#\" OnClick=removePoll(" + poll.id + ")>Remove poll</a>";
-    pollDiv.appendChild(removePoll);
-}
 
 function showNewChoice(pollId, choiceDescription) {
     var poll = document.getElementById(pollId);
@@ -207,6 +182,7 @@ function showChart(pollId, choices){
     });
 }
 
+
 function showForm() {
     document.getElementById("addPollForm").style.display = '';
     showChoiceForm();
@@ -218,30 +194,42 @@ function hideForm() {
 
 function showChoiceForm() {
     document.getElementById("addChoices").style.display = '';
-    document.getElementById("addPollForm").reset();
+    document.getElementById("doneButton").style.display = '';
 }
 
 function hideChoiceForm() {
     document.getElementById("addChoices").style.display = "none";
+    document.getElementById("doneButton").style.display = "none";
 }
 
-function formSubmit() {
-    var form = document.getElementById("addPollForm");
-    var name = form.elements["poll_question"].value;
-/*    hideForm();
-    document.getElementById("addPollForm").reset();*/
-    addPoll(name);
+function resetFields() {
+    document.getElementById("addPollForm").reset();
+    $('.remove-me').remove();
+    $('.choice:not(:first)').remove();
+    document.getElementById("addChoices").reset();
 }
+
+
 
 function choiceSubmit(){
-    var form = document.getElementById("addPollForm");
-    var pollName = form.elements["poll_question"].value;
-    var form = document.getElementById("addChoices");
-    var choiceDescription = form.elements["choice"].value;
-    document.getElementById("addChoices").reset();
-    addChoiceToPoll(pollName, choiceDescription)
+    var pollName = document.getElementById("poll_question").value;
+    addPoll(pollName);
+    $('input.choice').each(function(index, element){
+        addChoiceToPoll(pollName, element.value);
+    });
+    resetFields();
+    hideForm();
+    hideChoiceForm();
 }
 
+function showVoterLink(id){
+    var URL = window.location.href + "/voter/" + id;
+    var linkPlace = document.getElementById("link");
+    var link = document.createElement("a");
+    link.setAttribute("href", URL);
+    link.innerHTML = "Click here to see your poll!";
+    linkPlace.appendChild(link);
+}
 function init() {
     hideForm();
     hideChoiceForm();
