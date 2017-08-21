@@ -5,47 +5,45 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Open+Sans+Condensed:300" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
     <script src="websocket.js"></script>
 
 
 </head>
 <body>
 <div id="wrapper">
-    <h1>Java Websocket Home</h1>
-    <p>Welcome to the Java WebSocket Home. Click the Add a device button to start adding devices.</p>
+    <h1>Poller</h1>
+    <p>Create your own poll in a blink of an eye!</p>
     <br/>
-        <div id="addPoll">
-            <div class="button"><a href="#" OnClick="showForm()">Add new poll</a></div>
-            <form id="addPollForm">
-                <div class="form-group">
-                    <input type="text" name="poll_question" id="poll_question" />
-                </div>
-            </form>
+    <div id="addPoll">
+        <button class="button btn btn-primary" OnClick="showForm()">Add new poll</button>
+        <form id="addPollForm">
+            <div class="form-group">
+                <input type="text" class ="form-control" name="poll_question" id="poll_question"
+                       placeholder="Add your question"/>
+            </div>
+        </form>
 
-                <div class="form-group">
-                        <form id="addChoices" class="input-append">
-                            <div id="field">
-                                <input autocomplete="off" class="choice" id="field1" name="choice" type="text" placeholder="Add an option" data-items="8"/>
-                                <button id="remove1" class="btn btn-danger remove-me" >-</button>
-                                <br/>
-                            </div>
-                            <button id="b1" class="btn add-more" type="button" value="Add">+</button>
-                        </form>
-                    <input type="reset" id="doneButton" class="button" value="Done" onclick=choiceSubmit()>
+        <div class="form-group">
+            <form id="addChoices" class="input-append">
+                <div id="field">
+                    <div class="input-group">
+                        <input autocomplete="off" class="choice form-control" id="field1" name="choice"
+                               type="text" placeholder="Add new option" data-items="8"/>
+                        <span class="input-group-btn">
+                            <button id="remove1" class="btn btn-secondary remove-me" type="button">-</button>
+                        </span>
+                    </div>
                 </div>
-                    <!--                <h3>Add a new question</h3>
-                                    <span>Name: <input type="text" name="poll_question" id="poll_question"></span>
-                                    <input type="button" class="button" value="Add" onclick=formSubmit()>
-                                    <input type="reset" class="button" value="Cancel" onclick=hideForm()>-->
+                <button id="b1" class="btn btn-info add-more" type="button" value="Add">Add more options</button>
+            </form>
+            <button type="reset" id="doneButton" class="btn btn-success" onclick=choiceSubmit()><b>Done</b></button>
         </div>
-        <!--      <div class="inline" id="details" class="row">
-                <h3> Vote! </h3>
-              </div>-->
-        <br/>
-        <div id="link">
-        </div>
+    </div>
+    <br/>
+    <div id="link">
+    </div>
 </div>
 </body>
 </html>

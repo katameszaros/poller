@@ -1,7 +1,13 @@
+html{
+    font-size: medium;
+}
+
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 80%;
-    background-color: whitesmoke;
+    font-family: 'Open Sans Condensed', sans-serif;
+    background-color: rgba(200, 200, 200, 1);
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-image: url(https://avatanplus.com/files/resources/original/57570f8cc620a1552c14be0c.jpg);
 }
 
 #wrapper {
@@ -10,29 +16,14 @@ body {
     color: black;
 }
 
+h1{
+    font-size: 7em;
+    font-family: 'Lobster', cursive;
+}
+
 p {
     text-align: center;
-}
-
-.button {
-    display: inline;
-    color: #fff;
-    background-color: #f2791d;
-    padding: 8px;
-    margin: auto;
-    border-radius: 8px;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
-    box-shadow: none;
-    border: none;
-}
-
-.button:hover {
-    background-color: #ffb15e;
-}
-.button a, a:visited, a:hover, a:active {
-    color: #fff;
-    text-decoration: none;
+    font-size: 1.5em;
 }
 
 #addPoll {
@@ -46,7 +37,6 @@ p {
     margin: auto;
     padding: 10px;
 }
-
 
 #content {
     margin: auto;
@@ -93,14 +83,38 @@ p {
     text-align: center;
 }
 
-.poll a {
+a {
     text-decoration: none;
+    text-shadow: 2px 2px 4px #000000;
+    font-size: 1.5em;
 }
 
-.poll a:visited, a:active, a:hover {
-    color: #fff;
+a:hover {
+    color: #101010;
+    text-shadow: none;
+
 }
 
 .poll a:hover {
     text-decoration: underline;
+}
+
+#poll_question{
+    width: 20%;
+    min-width: 30em;
+    margin: auto;
+}
+
+#field{
+    width: 20%;
+    min-width: 20em;
+    margin: auto;
+}
+
+.input-group{
+    margin-top: 0.5em;
+}
+
+.btn-info, .btn-success{
+    margin-top: 0.7em;
 }

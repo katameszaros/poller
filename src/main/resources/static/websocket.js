@@ -15,11 +15,11 @@ $(document).ready(function(){
         e.preventDefault();
         var next = $(".choice").length;
 
-        var newIn = '<input autocomplete="off" class="choice" id="field' + next +
-            '" name="field' + next + '" type="text">';
-        var removeBtn = '<button id="remove' + (next) +
-            '" class="btn btn-danger remove-me" >-</button><br/>';
-        $("#field").append(newIn).append(removeBtn);
+        var newIn = '<div class="input-group"><input autocomplete="off" class="choice form-control" id="field' + next +
+            '" name="field' + next + '" type="text" placeholder="Add new option">';
+        var removeBtn = '<span class="input-group-btn"><button id="remove' + (next) +
+            '" class="btn btn-secondary remove-me" type="button" >-</button><br/></span></div>';
+        $("#field").append(newIn + removeBtn);
 
 
         $('.remove-me').click(function(e){
@@ -108,6 +108,9 @@ function choiceSubmit(){
 function showVoterLink(id){
     var URL = window.location.origin + "/voter/" + id;
     var linkPlace = document.getElementById("link");
+    while (linkPlace.firstChild) {
+        linkPlace.removeChild(linkPlace.firstChild);
+    }
     var link = document.createElement("a");
     link.setAttribute("href", URL);
     link.innerHTML = "Click here to see your poll!";
