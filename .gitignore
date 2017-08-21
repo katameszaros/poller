@@ -31,3 +31,5 @@ out/
 #Build#
 build/
 
+#Gradle#
+.gradle/
